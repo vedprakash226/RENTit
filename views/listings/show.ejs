@@ -37,7 +37,7 @@
 <div class="row mb-3 mt-3">
     <div class="col-8 offset-3">
         <h3>Leave A FeedBack!!</h3>
-        <form action="/listings/<%= data._id %>/review" method="POST" novalidate class="needs-validation">
+        <form action="/listings/<%= data._id %>/reviews" method="POST" novalidate class="needs-validation">
             <div class="col-6">
                 <label for="rating" class="form-label">Rating</label>
                 <input id="rating" type="range" min="1" max="5" step="0.5" class="form-range" name="review[rating]">
