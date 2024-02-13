@@ -15,10 +15,23 @@
           <li class="nav-item">
             <a class="nav-link" href="/listings/new">Add New Listing</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li> -->
         </ul>
+        <ul class="navbar-nav ms-auto">
+          <% if(!currUser) { %>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="/PAGE" href="/signup">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Log In</a>
+          </li>
+          <% } %>
+          <% if(currUser) {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+          </li>
+          <% } %>
+        </ul>
+
       </div>
     </div>
   </nav>
