@@ -1,3 +1,9 @@
+if(process.env.NODE_ENV !== "production"){
+    require("dotenv").config();
+
+}
+// console.log(process.env)
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -43,6 +49,8 @@ app.use(express.static(path.join(__dirname, "/public")))
 main()
 .then(res=>{console.log("connection with database success")})
 .catch(err => console.log(err));
+
+//this function sets up the environment for the database initialization .
 
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');

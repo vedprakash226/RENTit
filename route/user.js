@@ -3,48 +3,33 @@ const router = express.Router();
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const { route } = require("./listing.js");
-const passport = require('passport')
+const passport = require('passport');
+const { saveRedirectUrl } = require("../middleware.js");
 
-router.get("/signup", (req, res)=>{
-    res.render("user/signup.ejs")
+const userController = require("../controllers/user.js");
+
+router.route("/signup")
+.get((req, res)=>{
+    res.render("user/signup.ejs");
 })
+.post(wrapAsync(userController.signUp))
 
-router.post("/signup", wrapAsync(async(req, res)=>{
-    try{
-    let {username, email, password}=req.body;
-    let userInfo = new User({email, username})
 
-    let registeredUser = await User.register(userInfo, password);
-    console.log(registeredUser);
+//All the controlling code inside each router is shifted to the controllers folder to look the code clean.
 
-    req.locals = req .flash("success", "Welcome to WanderLust")
-    res.redirect("/listings")
-    }
-    catch(e){
-        req.flash("error", e.message);
-        res.redirect("/signup");
-    }
-}))
+//This route is to create a new user.  The code that functions inside this route is now shifted to the user.
+// router.post("/signup", wrapAsync(userController.signUp));
 
-router.get("/login", (req, res)=>{
-    res.render("user/login.ejs");
-})
+router.route("/login")
+.get(userController.loginFormRenderer)
+.post(saveRedirectUrl, passport.authenticate("local", {failureRedirect:'/login', failureFlash: true}), userController.loginSuccess)
 
-router.post("/login",passport.authenticate("local", {failureRedirect:'/login', failureFlash: true}), async(req, res)=>{
-    req.flash("success", "Welcome back to wanderlust")
-    res.redirect("/listings")
-})
+// router.get("/login", userController.loginFormRenderer);
+
+// router.post("/login",saveRedirectUrl, passport.authenticate("local", {failureRedirect:'/login', failureFlash: true}), userController.loginSuccess);
 
 //to logout from the platform
-router.get("/logout", (req, res, next)=>{
-    req.logout((err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash("success", "You are logged out successfully")
-        res.redirect("/listings");
-    })
-})
-
+//The code that functions inside this route is now shifted to the user controllers. 
+router.get("/logout", userController.logout);
 
 module.exports = router;

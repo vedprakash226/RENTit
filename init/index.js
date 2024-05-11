@@ -12,6 +12,8 @@ async function main() {
 
 const initDB = async () =>{
     await Listing.deleteMany({});
+    //adding the owner field to the data
+    initData.data =  initData.data.map((obj)=>({...obj, owner: "66337162dc62b4d75228dda2"}));
     await Listing.insertMany(initData.data);
     console.log("Data saved");
 }
