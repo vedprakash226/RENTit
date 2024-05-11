@@ -24,6 +24,11 @@
                 <label for="description" class="form-label"><b>Description</b></label>
                 <textarea name="listing[description]" class="form-control" required><%= data.description %></textarea>
             </div>
+
+            <div class="mb-3">
+                <b>Original Property Image</b><br><br>
+                <img src="<%= transformedUrl %>" alt="Network error" style = "border-radius: 2px 15px;">
+            </div>
             
             <div class="mb-3"> 
                 <label for="image" class="form-label"><b>Upload New Image</b></label>

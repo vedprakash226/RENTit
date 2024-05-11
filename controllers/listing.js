@@ -33,7 +33,13 @@ module.exports.createListing = async(req, res, next)=>{
 module.exports.renderEdit_form = async (req, res)=>{
     let {id}= req.params;
     let data= await Listing.findById(id);
-    res.render("listings/edit.ejs", {data});
+    if(!data){
+        req.flash("error", "Your listing request Doesn't exists!!");
+        res.redirect("/listings");
+    }
+    let originalUrl = data.image.url;
+    transformedUrl = originalUrl.replace("/upload", "/upload/w_250");
+    res.render("listings/edit.ejs", {data, transformedUrl});
 }
 
 module.exports.updateListing = async (req, res)=>{
