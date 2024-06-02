@@ -1,2 +1,4 @@
 .env
 node_modules/
+
+# This files are created so that the above file can't got pushed to the git repository
