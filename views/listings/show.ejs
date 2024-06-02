@@ -6,6 +6,10 @@
     <title>WanderLust</title>
 </head> -->
 <% layout("/layouts/boilerplate") %>
+<script>
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+    const coordi = <%- JSON.stringify(data.geometry.coordinates) %>;
+</script>
     <!-- <body> -->
     <div class="row">
         <div class="col-8 offset-3"><br>
@@ -72,8 +76,9 @@
         </form>
         <% } %>
 <hr>
-        <h4>All Reviews!!</h4>
+        <% if(data.reviews.length>0){ %>
         <div class="row">
+            <p>All Reviews!!</p>
             <% for(review of data.reviews){ %>
                 <div class="card col-5 mb-3 ms-3">
                     <div class="card-body">
@@ -87,9 +92,15 @@
                 </div>
             <% } %>
         </div>
-
+        <% } %>
+    </div>
+    <div class="col-6 offset-3 mb-3">
+        <h3>Where you'll be</h3>
+        <div id="map"></div>
     </div>
 </div>
+
+<script src="/js/map.js"></script>
 
     <!-- </body> -->
     <!-- </html> -->
