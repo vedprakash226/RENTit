@@ -16,6 +16,7 @@ const ExpressError = require("./utils/ExpressError.js");
 // const {listingSchema, reviewSchema}=require("./schema.js");       //this is for the validation help by Joi
 const Review = require("./models/review.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 
 //Authentication
@@ -31,8 +32,16 @@ const userRouter = require("./route/user.js");
 // const dbUrl = mongodb://127.0.0.1:27017/wanderlust  This is the local database connection url
 const dbUrl = process.env.ATLASDB_URL;
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto:{
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24*60*60,
+})
 const sessionOptions = {
-    secret:"mysupersecret",
+    store,      //session knows of which store we want to use.
+    secret:process.env.SECRET,
     resave:false, 
     saveUninitialized:true,
     cookie:{
@@ -41,6 +50,7 @@ const sessionOptions = {
         httpsOnly: true,
     }
 }
+
 
 app.set("view-engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
