@@ -28,6 +28,9 @@ const listingRouter = require("./route/listing.js");
 const reviewRouter = require("./route/review.js");
 const userRouter = require("./route/user.js");
 
+// const dbUrl = mongodb://127.0.0.1:27017/wanderlust  This is the local database connection url
+const dbUrl = process.env.ATLASDB_URL;
+
 const sessionOptions = {
     secret:"mysupersecret",
     resave:false, 
@@ -53,7 +56,7 @@ main()
 //this function sets up the environment for the database initialization .
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+  await mongoose.connect(dbUrl);
 }
 
 //Root
