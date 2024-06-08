@@ -2,7 +2,7 @@
     const map = new mapboxgl.Map({
         container : 'map', // container ID
         center: coordi, // starting position [lng, lat]
-        zoom: 10 // starting zoom
+        zoom: 14 // starting zoom
     });
 
     console.log(coordi);

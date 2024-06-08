@@ -99,11 +99,12 @@ app.use((req, res, next)=>{
 //     res.send(registeredUser)
 // })
 
-// app.get("/",(req, res)=>{
-//     res.render("listings/welcome.ejs");
-// });
+app.get("/",(req, res)=>{
+    res.render("listings/welcome.ejs");
+});
 
 //All the listing routes are in the route listing file we are requireing all the routes from there
+
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
