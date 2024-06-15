@@ -1,4 +1,4 @@
 # RENTit
 Property Management Website
 
-Under Development
+TO ACCESS THE WEBSITE CLICK ON - https://rentit-90is.onrender.com/
